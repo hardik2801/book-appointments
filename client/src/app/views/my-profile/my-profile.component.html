@@ -1,0 +1,25 @@
+<section class="content-header container" [hidden]="loading">
+  <h3>
+    {{name}}
+  </h3>
+  <h4>
+    <small>
+      {{timezone || 'No TimeZone Found'}}
+      <a (click)="updateTimezone()">Update</a>
+    </small>
+  </h4>
+</section>
+
+<div class="container" [hidden]="loading">
+  <div class="form-custom" [hidden]="!showtzSelector">
+    <ng2-timezone-picker [(timezone)]="timezone" [placeholder]="placeholderString" (change)="changeTimezone($event)">
+    </ng2-timezone-picker>
+  </div>
+</div>
+
+<div class="container" [hidden]="loading">
+  <h4 class="custom-color">
+    Reservations
+  </h4>
+</div>
+<div class="loading loading-big" [hidden]="!loading"></div>
