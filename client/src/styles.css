@@ -3,6 +3,7 @@
 @import '~font-awesome/css/font-awesome.min.css';
 @import '~ng2-toastr/ng2-toastr.css';
 @import '~select2/dist/css/select2.min.css';
+@import "~ng-pick-datetime/assets/style/picker.min.css";
 
 .loading {
     color: white!important;

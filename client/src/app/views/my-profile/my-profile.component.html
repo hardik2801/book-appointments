@@ -14,12 +14,27 @@
   <div class="form-custom" [hidden]="!showtzSelector">
     <ng2-timezone-picker [(timezone)]="timezone" [placeholder]="placeholderString" (change)="changeTimezone($event)">
     </ng2-timezone-picker>
+    <button class="btn btn-primary" (click)="saveTimezone()">Save</button>
   </div>
 </div>
 
-<div class="container" [hidden]="loading">
+<div class="container col-md-12 col-xs-12 col-lg-12 col-sm-12" [hidden]="loading">
   <h4 class="custom-color">
     Reservations
   </h4>
+<table class="table table-striped">
+  <thead>
+    <th>
+      Date/Time
+    </th>
+    <th>Booked By</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let booking of reservations">
+      <td>{{booking.time | date:'medium'}}</td>
+      <td>{{booking.booked_by || 'NA' }}</td>
+    </tr>
+  </tbody>
+</table>
 </div>
 <div class="loading loading-big" [hidden]="!loading"></div>

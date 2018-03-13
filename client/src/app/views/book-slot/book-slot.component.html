@@ -1,0 +1,124 @@
+<section class="content-header container" [hidden]="loading">
+  <h4>
+    <small>Making Reservations With</small>
+  </h4>
+  <h3>
+    {{name}}
+    <small>
+      {{timezone || 'No TimeZone Found'}}
+    </small>
+  </h3>
+</section>
+
+<div class="container bottom-margin col-md-12 col-xs-12 col-lg-12 col-sm-12" [hidden]="loading">
+  <h4 class="custom-color">
+  </h4>
+  <input class="margin-custom" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Select Date" [(ngModel)]="selectedDate">
+  <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+  <button class="btn btn-primary" (click)="setDate()">Change</button>
+</div>
+<div class="container">
+  <div class="btn-group" data-toggle="buttons">
+    <div class="row">
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="00" [disabled]="preBookedSlots.indexOf(0) > -1" [(ngModel)]="selectedSlot" id="option1"> 12:00 Am
+      </label>
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="01" [(ngModel)]="selectedSlot" id="option2"> 01:00 Am
+      </label>
+    </div>
+    <div class="row">
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="02" [(ngModel)]="selectedSlot" id="option4"> 02:00 Am
+      </label>
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="03" [(ngModel)]="selectedSlot" id="option5"> 03:00 Am
+      </label>
+    </div>
+    <div class="row">
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="04" [(ngModel)]="selectedSlot" id="option6"> 04:00 Am
+      </label>
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="05" [(ngModel)]="selectedSlot" id="option6"> 05:00 Am
+      </label>
+    </div>
+    <div class="row">
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="06" [(ngModel)]="selectedSlot" id="option7"> 06:00 Am
+      </label>
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="07" [(ngModel)]="selectedSlot" id="option8"> 07:00 Am
+      </label>
+    </div>
+    <div class="row">
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="08" [(ngModel)]="selectedSlot" id="option9"> 08:00 Am
+      </label>
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="09" [(ngModel)]="selectedSlot" id="option10"> 09:00 Am
+      </label>
+    </div>
+    <div class="row">
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="10" [(ngModel)]="selectedSlot" id="option11"> 10:00 Am
+      </label>
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="11" [(ngModel)]="selectedSlot" id="option12"> 11:00 Am
+      </label>
+    </div>
+    <div class="row">
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="12" [(ngModel)]="selectedSlot" id="option12"> 12:00 Pm
+      </label>
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="13" [(ngModel)]="selectedSlot" id="option14"> 01:00 Pm
+      </label>
+    </div>
+    <div class="row">
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="14" [(ngModel)]="selectedSlot" id="option15"> 02:00 Pm
+      </label>
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="15" [(ngModel)]="selectedSlot" id="option16"> 03:00 Pm
+      </label>
+    </div>
+    <div class="row">
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="16" [(ngModel)]="selectedSlot" id="option17"> 04:00 Pm
+      </label>
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="17" [(ngModel)]="selectedSlot" id="option18"> 05:00 Pm
+      </label>
+    </div>
+    <div class="row">
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="18" [(ngModel)]="selectedSlot" id="option19"> 06:00 Pm
+      </label>
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="19" [(ngModel)]="selectedSlot" id="option20"> 07:00 Pm
+      </label>
+    </div>
+    <div class="row">
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="20" [(ngModel)]="selectedSlot" id="option21"> 08:00 Pm
+      </label>
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="21" [(ngModel)]="selectedSlot" id="option22"> 09:00 Pm
+      </label>
+    </div>
+    <div class="row bottom-margin-extra">
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="22" [(ngModel)]="selectedSlot" id="option23"> 10:00 Pm
+      </label>
+      <label class="btn btn-primary outline col-md-5">
+        <input type="radio" name="options" value="23" [(ngModel)]="selectedSlot" id="option24"> 11:00 Pm
+      </label>
+    </div>
+  </div> 
+</div>
+<div class="footer" [hidden]="!selectedSlot">
+  <button class="btn btn-success" (click)="reserve()">Make Reservation</button>
+</div>
+
+<div class="loading loading-big" [hidden]="!loading"></div>

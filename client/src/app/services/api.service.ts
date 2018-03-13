@@ -55,5 +55,33 @@ export class ApiService {
             });
     }
 
+    updateTZ(userId, timezone) {
+        const timezoneObj = {
+            timezone: timezone
+        };
+        return this.httpClient
+            .post('http://127.0.0.1:3000/api/updatetz/' + userId, timezoneObj)
+            .map((response: Response) => {
+                // console.log(response);
+                return response;
+            });
+    }
+
+    makeReservation(userId, loggedIn, timeSlot, userName, loggedIn_name) {
+        const objToSend = {
+            userId: userId,
+            userName: userName,
+            loggedIn_name: loggedIn_name,
+            loggedIn: loggedIn,
+            timeSlot: timeSlot
+        };
+        return this.httpClient
+            .post('http://127.0.0.1:3000/api/reserve/', objToSend)
+            .map((response: Response) => {
+                // console.log(response);
+                return response;
+            });
+    }
+
 
 }

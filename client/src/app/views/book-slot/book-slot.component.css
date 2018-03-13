@@ -1,0 +1,51 @@
+.margin-custom {
+    margin-left: 10%;
+}
+
+.bottom-margin {
+    margin-bottom: 20px;
+}
+
+.bottom-margin-extra {
+    margin-bottom: 50px;
+}
+
+.btn.outline {
+    background: none;
+    margin: 10px;
+}
+
+.btn-group {
+    margin-left: 10%;
+}
+
+.btn-primary.outline {
+	border: 2px solid #0099cc;
+	color: #0099cc;
+}
+
+/* input[type="radio"] {
+    visibility:hidden;
+}
+label {
+    cursor: pointer;
+}
+input[type=radio]+label {
+	font-weight: normal;
+}
+input[type=radio]:checked+label {
+    font-weight: bold;
+    background: red !important;
+}
+input[type=radio]:focus+label {
+	border: 1px dotted #000 !important;
+} */
+
+.footer {
+    position: fixed; 
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+}

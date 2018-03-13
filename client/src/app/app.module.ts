@@ -5,22 +5,24 @@ import { ApiService } from './services/api.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { MomentModule } from 'angular2-moment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MomentTimezoneModule} from 'angular-moment-timezone';
+import { MomentTimezoneModule } from 'angular-moment-timezone';
 import { TimezonePickerModule } from 'ng2-timezone-selector';
 import { RouterStateParamsService } from 'ng-router-state-params';
 import { AppComponent } from './app.component';
 import { LoginSignupComponent } from './views/login-signup/login-signup.component';
 import { MyProfileComponent } from './views/my-profile/my-profile.component';
-
+import { BookSlotComponent } from './views/book-slot/book-slot.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginSignupComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    BookSlotComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,9 @@ import { MyProfileComponent } from './views/my-profile/my-profile.component';
     ToastModule.forRoot(),
     MomentModule,
     MomentTimezoneModule,
-    TimezonePickerModule
+    TimezonePickerModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
   providers: [
     ApiService,

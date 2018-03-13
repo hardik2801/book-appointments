@@ -2,6 +2,7 @@ var async = require('async');
 var mongoose = require('mongoose');
 var ResponseUtils = appRequire('utils.response');
 var request = require("request");
+var async = require('async');
 
 var passport = require('passport');
 var config = appRequire('config');
@@ -35,6 +36,21 @@ function signup(req, res) {
             return res.json(ResponseUtils.responseMessage(true, 'Successful created new user.'));
         });
     }
+}
+
+function updateTimezone(req, res) {
+    var userId = req.params.id;
+    var timezone = req.body.timezone;
+    var query = {
+        $set: { timezone: timezone }
+    };
+    User.findByIdAndUpdate(userId, query, { new: true }, function (err, result) {
+        if (err) {
+            return res.json(ResponseUtils.responseMessage(false, 'error in saving'));
+        }
+
+        return res.json(ResponseUtils.responseMessage(true, 'success', result));
+    });
 }
 
 function login(req, res) {
@@ -86,9 +102,66 @@ function getUser(req, res) {
     });
 }
 
+function makeReservation(req, res) {
+    var userId = req.body.userId;
+    var loggedIn = req.body.loggedIn;
+    var timeSlot = req.body.timeSlot;
+    var userName = req.body.userName;
+    var loggedIn_name = req.body.loggedIn_name;
+
+    var query1 = {
+        $addToSet: {
+            reservations: {
+                time: timeSlot,
+                booked_by: loggedIn_name,
+                booked_by_id: loggedIn
+            }
+        }
+    };
+
+    var query2 = {
+        $addToSet: {
+            reservations: {
+                time: timeSlot,
+                booked_for: userName,
+                booked_for_id: userId
+            }
+        }
+    };
+    async.parallel({
+        booked_for: function (parallelCallback) {
+            User.findByIdAndUpdate(userId, query1, { new: true }, function (err, result) {
+                if (err) {
+                    return res.json(ResponseUtils.responseMessage(false, 'error in saving'));
+                }
+
+                parallelCallback(null, result);
+            });
+        },
+        booked_by: function (parallelCallback) {
+            User.findByIdAndUpdate(loggedIn, query2, { new: true }, function (err, result) {
+                if (err) {
+                    return res.json(ResponseUtils.responseMessage(false, 'error in saving'));
+                }
+
+                parallelCallback(null, result);
+            });
+        },
+    },
+        function (err, result) {
+            if (err) {
+                return res.json(ResponseUtils.responseError(err));
+            }
+            // console.log(result, 'parallel result');
+            return res.json(ResponseUtils.responseMessage(true, 'success', result));
+        });
+}
+
 
 module.exports = {
     signup: signup,
     login: login,
-    getUser: getUser
+    getUser: getUser,
+    updateTimezone: updateTimezone,
+    makeReservation: makeReservation
 };

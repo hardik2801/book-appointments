@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoginSignupComponent } from '../views/login-signup/login-signup.component';
 import { MyProfileComponent } from '../views/my-profile/my-profile.component';
+import { BookSlotComponent } from '../views/book-slot/book-slot.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'my-schedules/:id',
     component: MyProfileComponent
+  },
+  {
+    path: 'book-slot/:id',
+    component: BookSlotComponent
   },
 //   {
 //     path: 'sources/viewsources/:type',

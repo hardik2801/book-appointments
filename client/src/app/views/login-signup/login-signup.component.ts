@@ -2,8 +2,10 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { MomentModule } from 'angular2-moment';
-import { MomentTimezoneModule } from 'angular-moment-timezone';
+// import { MomentModule } from 'angular2-moment';
+// import { MomentTimezoneModule } from 'angular-moment-timezone';
+import * as moment from 'moment';
+import 'moment-timezone';
 
 @Component({
   selector: 'app-login-signup',
@@ -13,8 +15,7 @@ import { MomentTimezoneModule } from 'angular-moment-timezone';
 export class LoginSignupComponent implements OnInit {
   currentRoute; loading; timezone; placeholderString;
   email_ip; password_ip; name_ip; resp;
-  constructor(public _router: Router, private apiService: ApiService, public toastr: ToastsManager, vcr: ViewContainerRef,
-    private moment: MomentModule) {
+  constructor(public _router: Router, private apiService: ApiService, public toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
   }
 
@@ -42,6 +43,8 @@ export class LoginSignupComponent implements OnInit {
           } else if (this.resp.status) {
             // console.log(this.resp);
             localStorage.setItem('jwtToken', this.resp.data.token);
+            localStorage.setItem('userId', this.resp.data.user._id);
+            localStorage.setItem('logged_in_user', this.resp.data.user.name);
             this._router.navigate(['my-schedules/' + this.resp.data.user._id]);
           }
         });
@@ -50,16 +53,15 @@ export class LoginSignupComponent implements OnInit {
     }
   }
 
-  changeTimezone(timezone) {
-    console.log(timezone, 'timezone changed');
-    this.timezone = timezone;
-  }
+  // changeTimezone(timezone) {
+  //   this.timezone = timezone;
+  // }
 
   signup() {
-    if (!this.timezone) {
-      this.toastr.error('Please select your timezone!');
-      return;
-    }
+    // if (!this.timezone) {
+    //   this.toastr.error('Please select your timezone!');
+    //   return;
+    // }
     if (this.email_ip && this.password_ip) {
       this.loading = true;
       this.apiService.signup(this.email_ip, this.password_ip, this.name_ip, this.timezone).subscribe((response) => {
@@ -91,7 +93,7 @@ export class LoginSignupComponent implements OnInit {
     this.currentRoute = 'login';
     this.email_ip = '';
     this.password_ip = '';
-    this.timezone = null;
+    this.timezone = moment.tz.guess();
     this.placeholderString = 'Select timezone';
   }
 }

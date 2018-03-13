@@ -19,12 +19,28 @@ var Users = new Schema({
         type: String,
         required: true
     },
-    reservations: [{
-        type: Date
-    }],
     updatedon: {
         type: Date
-    }
+    }, 
+    reservations: [{
+        time: Date,
+        booked_by:{
+            type: String,
+            default: null
+        },
+        booked_by_id: {
+         type: Schema.Types.ObjectId,
+         default: null
+        },
+        booked_for: {
+            type: String,
+            default: null
+        },
+        booked_for_id: {
+            type: Schema.Types.ObjectId,
+            default: null
+        }
+    }]
 });
 
 Users.pre('save', function (next) {
