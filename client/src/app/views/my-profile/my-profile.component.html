@@ -28,11 +28,13 @@
       Date/Time
     </th>
     <th>Booked By</th>
+    <th>Booked For</th>
   </thead>
   <tbody>
     <tr *ngFor="let booking of reservations">
-      <td>{{booking.time | date:'medium'}}</td>
-      <td>{{booking.booked_by || 'NA' }}</td>
+      <td>{{booking.time}}</td>
+      <td>{{booking.booked_by || 'Me' }}</td>
+      <td>{{booking.booked_for || 'Me' }}</td>
     </tr>
   </tbody>
 </table>

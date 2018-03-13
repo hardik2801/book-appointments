@@ -9,3 +9,13 @@
     font-size: 18px;
     color: #ffffff;
 }
+
+.right {
+    float: right;
+    padding-right: 25px;
+    padding-top: 10px;
+    font-size: 14px;
+    font-weight: bolder;
+    color: #ffffff;
+    cursor: pointer;
+}

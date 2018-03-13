@@ -14,7 +14,7 @@ import 'moment-timezone';
 })
 export class LoginSignupComponent implements OnInit {
   currentRoute; loading; timezone; placeholderString;
-  email_ip; password_ip; name_ip; resp;
+  email_ip; password_ip; name_ip; resp; loggedIn; token; loggedOut;
   constructor(public _router: Router, private apiService: ApiService, public toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
   }
@@ -44,6 +44,7 @@ export class LoginSignupComponent implements OnInit {
             // console.log(this.resp);
             localStorage.setItem('jwtToken', this.resp.data.token);
             localStorage.setItem('userId', this.resp.data.user._id);
+            this.loggedOut = false;
             localStorage.setItem('logged_in_user', this.resp.data.user.name);
             this._router.navigate(['my-schedules/' + this.resp.data.user._id]);
           }
@@ -88,6 +89,11 @@ export class LoginSignupComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loggedIn = localStorage.getItem('userId');
+    this.token = localStorage.getItem('jwtToken');
+    if (this.loggedIn && this.token) {
+      this._router.navigate(['my-schedules/' + this.loggedIn]);
+    }
 
     this.loading = false;
     this.currentRoute = 'login';

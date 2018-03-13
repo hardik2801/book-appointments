@@ -3,6 +3,8 @@ import { RouterStateParamsService } from 'ng-router-state-params';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import * as moment from 'moment';
+import 'moment-timezone';
 
 @Component({
   selector: 'app-my-profile',
@@ -53,6 +55,7 @@ export class MyProfileComponent implements OnInit {
       () => {
         this.loading = false;
         // console.log(this.resp);
+        const mainScope = this;
         if (!this.resp.status) {
           this.toastr.error(this.resp.message);
           this._router.navigate(['login/']);
@@ -62,8 +65,10 @@ export class MyProfileComponent implements OnInit {
             this.timezone = 'Asia/Kolkata';
           }
           this.name = this.resp.data.name;
+          this.resp.data.reservations.forEach(function(item) {
+            item.time = moment(item.time).tz(mainScope.timezone).format('MMM Do YYYY hA');
+          });
           this.reservations = this.resp.data.reservations;
-          // console.log(this.reservations);
         }
       });
   }
