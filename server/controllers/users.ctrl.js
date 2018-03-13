@@ -12,7 +12,7 @@ var jwt = require('jsonwebtoken');
 var User = appRequire("model.users");
 
 function signup(req, res) {
-    console.log(req.body, 'request');
+    // console.log(req.body, 'request');
     if (!req.body.email || !req.body.password) {
         return res.json(ResponseUtils.responseMessage(false, 'Please pass email and password.'));
     } else {
@@ -68,7 +68,7 @@ function login(req, res) {
         } else {
             // check if password matches
             user.comparePassword(req.body.password, function (err, isMatch) {
-                if (isMatch && !err) {
+                if (!err && isMatch) {
                     // if user is found and password is right create a token
                     var token = jwt.sign(user.toJSON(), config.secret);
                     // return the information including token as JSON

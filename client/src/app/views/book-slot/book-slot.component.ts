@@ -30,11 +30,11 @@ export class BookSlotComponent implements OnInit {
     },
       () => {
         this.loading = false;
-        console.log(this.resp);
         if (!this.resp.status) {
           this.toastr.error(this.resp.message);
           this._router.navigate(['login/']);
         } else if (this.resp.status) {
+          // console.log(this.resp.data.timezone, 'tz');
           this.timezone = this.resp.data.timezone;
           this.name = this.resp.data.name;
           this.reservations = this.resp.data.reservations;
@@ -44,28 +44,15 @@ export class BookSlotComponent implements OnInit {
 
   setDate() {
     const mainScope = this;
-    console.log(this.reservations);
-    this.selectedDate = moment(this.selectedDate).tz(this.timezone).format();
-    const dayReserv = this.reservations.filter(function (reservation) {
-      reservation.time = new Date(reservation.time);
-      reservation.time.setHours(0, 0, 0, 0);
-      reservation.time = moment(reservation.time).tz(mainScope.timezone).format();
-      return mainScope.selectedDate === reservation.time;
-    });
-
-    dayReserv.forEach(function(item) {
-      const index = mainScope.reservations.findIndex(x => x._id === item._id);
-      if (index > -1) {
-        item.time = mainScope.reservations[index].time;
+    const date_selected = new Date(this.selectedDate);
+    const today = this.reservations.filter(function(item) {
+      const temp = new Date(item.time);
+      if (date_selected.getDay() === temp.getDay() && date_selected.getMonth() === temp.getMonth()
+      && date_selected.getFullYear() === temp.getFullYear() ) {
+          item.time = new Date(item.time);
+        mainScope.preBookedSlots.push(item.time.getHours());
       }
-      const d = new Date(item.time);
-      mainScope.preBookedSlots.push(d.getHours());
     });
-    console.log(this.preBookedSlots, 'hours');
-
-    // console.log(this.selectedDate, 'date selected');
-    // console.log(this.selectedDate.toUTCString(), 'utc converted');
-    // console.log(moment(this.selectedDate).tz(this.timezone).format(), 'timezone converted');
 
   }
 
