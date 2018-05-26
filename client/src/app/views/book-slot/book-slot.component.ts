@@ -3,8 +3,6 @@ import { RouterStateParamsService } from 'ng-router-state-params';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { ApiService } from '../../services/api.service';
-// import { MomentModule } from 'angular2-moment';
-// import { MomentTimezoneModule } from 'angular-moment-timezone';
 import * as moment from 'moment';
 import 'moment-timezone';
 

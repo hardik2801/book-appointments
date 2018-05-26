@@ -20,7 +20,11 @@
 <div class="container">
   <div class="btn-group" data-toggle="buttons">
     <div class="row">
-      <label class="btn btn-primary outline col-md-5">
+
+      <label class="btn btn-primary outline col-md-5" *ngFor="let hour of hours">
+        <input type="radio" name="options" value="{{hour}}" [disabled]="preBookedSlots.indexOf(hour) > -1" [(ngModel)]="selectedSlot" id="option1"> {{hour}}
+      </label>
+      <!-- <label class="btn btn-primary outline col-md-5">
         <input type="radio" name="options" value="00" [disabled]="preBookedSlots.indexOf(0) > -1" [(ngModel)]="selectedSlot" id="option1"> 12:00 Am
       </label>
       <label class="btn btn-primary outline col-md-5">
@@ -113,9 +117,9 @@
       </label>
       <label class="btn btn-primary outline col-md-5">
         <input type="radio" name="options" value="23" [disabled]="preBookedSlots.indexOf(23) > -1" [(ngModel)]="selectedSlot" id="option24"> 11:00 Pm
-      </label>
+      </label> -->
     </div>
-  </div> 
+  </div>
 </div>
 <div class="footer" [hidden]="!selectedSlot">
   <button class="btn btn-success" (click)="reserve()">Make Reservation</button>
